@@ -39,8 +39,9 @@ const GlobeComponent = () => {
                     <Slider
                         value={mapOpacity * 100}
                         onChange={(e) => {
-                            setMapOpacity(Number(e.target.value /100.0));
-                            cridb.opacity = Number(e.target.value /100.0);
+                            let opacityVal = Number((e.target as HTMLInputElement).value ?? 0 / 100.0);
+                            setMapOpacity(opacityVal);
+                            cridb.opacity = opacityVal;
                         }}
                         color={'primary'}
                     /> 
