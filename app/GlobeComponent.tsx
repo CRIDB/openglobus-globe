@@ -26,7 +26,6 @@ const GlobeComponent = () => {
         <GlobeContextProvider>
             <Grid
                 container
-                justify="space-around"
                 direction="row"
             >
                 <Grid
