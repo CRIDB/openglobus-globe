@@ -1,27 +1,13 @@
-import React, { useState } from 'react';
-import { GlobeContextProvider, Globe } from "@openglobus/openglobus-react";
+import React, { useEffect, useState } from 'react';
+import { GlobeContextProvider, Globe, XYZ } from "@openglobus/openglobus-react";
 import * as og from "@openglobus/og";
 import { Slider, TextField, Grid } from '@mui/material';
 import "@openglobus/og/css/og.css";
 
 
 const GlobeComponent = () => {
-    const [ mapOpacity, setMapOpacity ] = useState(1.0);
+    const [ mapOpacity, setMapOpacity ] = useState(1);
       
-    let bing = new og.Bing("OpenStreetMap");
-    var cridb = new og.layer.XYZ("CRIDBMap", {
-        url: "https://eureka.cridb.com/api/tiles/52505/equi/{z}/{x}/{y}.png",
-        opacity: mapOpacity,
-        isBaseLayer: false,
-        urlRewrite: function (s: { tileX: number; tileY: number; tileZoom: any; }, u: any) {
-            return og.utils.stringTemplate(u, {
-                x: s.tileX,
-                y: s.tileY + Math.pow(2, s.tileZoom - 2),
-                z: s.tileZoom
-            });
-        },
-    });
-
     return (
         <GlobeContextProvider>
             <Grid
@@ -39,9 +25,7 @@ const GlobeComponent = () => {
                     <Slider
                         value={mapOpacity * 100}
                         onChange={(e) => {
-                            let opacityVal = Number((e.target as HTMLInputElement).value ?? 0) / 100;
-                            setMapOpacity(opacityVal);
-                            cridb.opacity = opacityVal;
+                            setMapOpacity(Number((e.target as HTMLInputElement).value ?? 0) / 100);
                         }}
                         color={'primary'}
                     /> 
@@ -60,8 +44,22 @@ const GlobeComponent = () => {
             <Globe
                 sunActive={false}
                 atmosphereEnabled={false}
-                layers={[bing, cridb]}
-                >  
+                layers={[new og.Bing("OpenStreetMap")]}
+                >
+                <XYZ
+                    name={'cridb'}
+                    url={"https://eureka.cridb.com/api/tiles/52505/equi/{z}/{x}/{y}.png"}
+                    opacity={mapOpacity}
+                    isBaseLayer={false}
+                    urlRewrite={function (s: { tileX: number; tileY: number; tileZoom: any; }, u: any) {
+                        return og.utils.stringTemplate(u, {
+                            x: s.tileX,
+                            y: s.tileY + Math.pow(2, s.tileZoom - 2),
+                            z: s.tileZoom
+                        });
+                    }}
+                >    
+                </XYZ>  
             </Globe>
         </GlobeContextProvider>
     );
