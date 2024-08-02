@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from 'react';
-import { GlobeContextProvider, Globe, XYZ } from "@openglobus/openglobus-react";
+import React, { useState } from 'react';
+import { GlobeContextProvider, Globe, XYZ, Entity, Vector, GeoObject, Geometry } from "@openglobus/openglobus-react";
 import * as og from "@openglobus/og";
 import { Slider, TextField, Grid } from '@mui/material';
 import "@openglobus/og/css/og.css";
@@ -17,7 +17,7 @@ const GlobeComponent = () => {
                 <Grid
                     item
                     md={3}
-                ></Grid>
+                />
                 <Grid
                     item
                     md={6}
@@ -42,9 +42,10 @@ const GlobeComponent = () => {
                 </Grid>
             </Grid>    
             <Globe
-                sunActive={false}
-                atmosphereEnabled={false}
-                layers={[new og.Bing("OpenStreetMap")]}
+                atmosphereEnabled
+                sun={{active:false}}
+                terrain={new og.EmptyTerrain()}
+                layers={[new og.Bing("OpenStreetMap")]}               
                 >
                 <XYZ
                     name={'cridb'}
@@ -58,8 +59,57 @@ const GlobeComponent = () => {
                             z: s.tileZoom
                         });
                     }}
-                >    
-                </XYZ>  
+                />    
+                <Vector name={'LinesCircles'}
+                        pickingScale={1}
+                        pickingEnabled={true}
+                        relativeToGround={false}
+                        scaleByDistance={[1.0, og.math.MAX32, 1.0]}
+                        >
+                    <Entity name="Circle1" lon={42.86} lat={10.385} alt={0}>
+                        <GeoObject
+                            color={"red"}
+                            scale={0.015}
+                            tag={'pointerSphere'}
+                            object3d={og.Object3d.createCylinder(1, 1, 0.1, 16, 16)}
+                            />
+                    </Entity>
+                    <Entity name="Circle2" lon={8.74} lat={40.39} alt={0}>
+                        <GeoObject
+                            color={"red"}
+                            scale={0.015}
+                            tag={'pointerSphere'}
+                            object3d={og.Object3d.createCylinder(1, 1, 0.1, 16, 16)}
+                            />
+                    </Entity>
+                    <Entity name="Circle3" lon={15.23} lat={21.62} alt={0}>
+                        <GeoObject
+                            color={"red"}
+                            scale={0.015}
+                            tag={'pointerSphere'}
+                            object3d={og.Object3d.createCylinder(1, 1, 0.1, 16, 16)}
+                            />
+                    </Entity>
+                    <Entity name="Circle4" lon={4.77} lat={13.36} alt={0}>
+                        <GeoObject
+                            color={"red"}
+                            scale={0.015}
+                            tag={'pointerSphere'}
+                            object3d={og.Object3d.createCylinder(1, 1, 0.1, 16, 16)}
+                            />
+                    </Entity>
+                    <Entity name="Path" lon={0} lat={0} alt={0}>
+                        <Geometry
+                            lineColor={"red"}
+                            lineWidth={10}
+                            type={'LINESTRING'}
+                            coordinates={[[42.86, 10.385],
+                                [8.74, 40.39],
+                                [15.23, 21.62],
+                                [4.77, 13.36]]}
+                           />
+                    </Entity>
+                </Vector>
             </Globe>
         </GlobeContextProvider>
     );
