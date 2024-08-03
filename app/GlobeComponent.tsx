@@ -65,6 +65,9 @@ const GlobeComponent = () => {
                         pickingEnabled={true}
                         relativeToGround={false}
                         scaleByDistance={[1.0, og.math.MAX32, 1.0]}
+                        onLclick={(e) => {
+                            console.log(e);
+                        }}
                         >
                     <Entity name="Circle1" lon={42.86} lat={10.385} alt={0}>
                         <GeoObject
@@ -98,6 +101,12 @@ const GlobeComponent = () => {
                             object3d={og.Object3d.createCylinder(1, 1, 0.1, 16, 16)}
                             />
                     </Entity>
+                </Vector>
+                <Vector name={'Path'}
+                        pickingScale={1}
+                        pickingEnabled={true}
+                        relativeToGround={false}
+                        >
                     <Entity name="Path" lon={0} lat={0} alt={0}>
                         <Geometry
                             lineColor={"red"}
