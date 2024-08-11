@@ -2,8 +2,8 @@ import React, { useState } from 'react';
 import { GlobeContextProvider, Globe, XYZ, Entity, Vector, GeoObject, Geometry } from "@openglobus/openglobus-react";
 import * as og from "@openglobus/og";
 import { Slider, TextField, Grid } from '@mui/material';
+import {CustomButton} from "@/app/Button";
 import "@openglobus/og/css/og.css";
-
 
 const GlobeComponent = () => {
     const [ mapOpacity, setMapOpacity ] = useState(1);
@@ -17,7 +17,9 @@ const GlobeComponent = () => {
                 <Grid
                     item
                     md={3}
-                />
+                >
+                    <CustomButton/>
+                </Grid>
                 <Grid
                     item
                     md={6}
@@ -40,12 +42,12 @@ const GlobeComponent = () => {
                         value={mapOpacity}
                     /> 
                 </Grid>
-            </Grid>    
+            </Grid>
             <Globe
                 atmosphereEnabled
                 sun={{active:false}}
                 terrain={new og.EmptyTerrain()}
-                layers={[new og.Bing("OpenStreetMap")]}               
+                layers={[new og.Bing("OpenStreetMap")]}
                 >
                 <XYZ
                     name={'cridb'}
@@ -59,7 +61,7 @@ const GlobeComponent = () => {
                             z: s.tileZoom
                         });
                     }}
-                />    
+                />
                 <Vector name={'LinesCircles'}
                         pickingScale={1}
                         pickingEnabled={true}
