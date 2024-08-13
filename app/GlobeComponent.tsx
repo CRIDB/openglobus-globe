@@ -50,7 +50,7 @@ const GlobeComponent = () => {
                 <XYZ
                     name="google"
                     opacity={1}
-                    url="http://mt.google.com/vt/lyrs=s&scale=4&x={x}&y={y}&z={z}"
+                    url="https://mt.google.com/vt/lyrs=s&scale=4&x={x}&y={y}&z={z}"
                     isBaseLayer={true}
                     />
                 <XYZ
@@ -77,7 +77,7 @@ const GlobeComponent = () => {
                             color={"red"}
                             scale={0.015}
                             tag={'pointerSphere'}
-                            object3d={og.Object3d.createCylinder(1, 1, 0.1, 16, 16)}
+                            object3d={og.Object3d.createSphere(1, 1, 0.1, 16, 16)}
                             />
                     </Entity>
                     <Entity name="Circle2" lon={8.74} lat={40.39} alt={0}>
