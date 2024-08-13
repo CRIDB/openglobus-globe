@@ -7,7 +7,7 @@ import "@openglobus/og/css/og.css";
 
 const GlobeComponent = () => {
     const [ mapOpacity, setMapOpacity ] = useState(1);
-      
+    
     return (
         <GlobeContextProvider>
             <Grid
@@ -44,11 +44,15 @@ const GlobeComponent = () => {
                 </Grid>
             </Grid>
             <Globe
-                atmosphereEnabled
+                atmosphereEnabled={false}
                 sun={{active:false}}
-                terrain={new og.EmptyTerrain()}
-                layers={[new og.Bing("OpenStreetMap")]}
                 >
+                <XYZ
+                    name="google"
+                    opacity={1}
+                    url="http://mt.google.com/vt/lyrs=s&scale=4&x={x}&y={y}&z={z}"
+                    isBaseLayer={true}
+                    />
                 <XYZ
                     name={'cridb'}
                     url={"https://eureka.cridb.com/api/tiles/52505/equi/{z}/{x}/{y}.png"}
@@ -63,9 +67,6 @@ const GlobeComponent = () => {
                     }}
                 />
                 <Vector name={'LinesCircles'}
-                        pickingScale={1}
-                        pickingEnabled={true}
-                        relativeToGround={false}
                         scaleByDistance={[1.0, og.math.MAX32, 1.0]}
                         onLclick={(e) => {
                             console.log(e);
@@ -104,11 +105,7 @@ const GlobeComponent = () => {
                             />
                     </Entity>
                 </Vector>
-                <Vector name={'Path'}
-                        pickingScale={1}
-                        pickingEnabled={true}
-                        relativeToGround={false}
-                        >
+                <Vector name={'Path'}>
                     <Entity name="Path" lon={0} lat={0} alt={0}>
                         <Geometry
                             lineColor={"red"}
