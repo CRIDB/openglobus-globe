@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import {useGlobeContext} from "@openglobus/openglobus-react";
 import { Button } from '@mui/material';
-import { Entity, LonLat, math, Object3d, Vector } from "@openglobus/og";
+import { Entity, Layer, LonLat, math, Object3d, Vector } from "@openglobus/og";
 
 export const CustomButton = () => {
     const {globe} = useGlobeContext()
@@ -130,8 +130,30 @@ export const CustomButton = () => {
         }
     }
 
+    const getCurrentPosition = () => {
+        if (globe) {
+            console.log(globe.planet.camera.getLonLat());
+        }
+    }
+
+    if (globe) {
+        globe.planet?.renderer?.events.on("mousemove", function (e) {
+            if (e.pickingObject) {
+                console.log(e.pickingObject.name);
+            }
+            getCurrentPosition();
+        });
+    
+        globe.planet?.renderer?.events.on("lclick", function (e) {
+            if (e.pickingObject instanceof Layer) {
+                e.pickingObject.bringToFront();
+            }
+        });
+    }
+
     return <>
     <Button variant="contained" color="success" size="large" onClick={flyCamera} style={{margin:10}}>Fly To</Button>
     <Button variant="contained" color="info" size="large" onClick={drawPath} style={{margin:10}}>Draw Path</Button>
+    <Button variant="contained" color="info" size="large" onClick={getCurrentPosition} style={{margin:10}}>Get Current Position</Button>
     </>
 }
