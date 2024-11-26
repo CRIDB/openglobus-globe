@@ -125,7 +125,7 @@ export const CustomButton = () => {
             if (pathEntity.polyline) {
                 pathEntity.polyline.setPath3v(pathArr);
             }
-            
+            //@ts-ignore
             globe.planet.addLayers([path, poi]);
         }
     }
