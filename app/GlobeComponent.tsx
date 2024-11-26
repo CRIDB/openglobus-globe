@@ -47,6 +47,7 @@ const GlobeComponent = () => {
             </Grid>
             <Globe
                 atmosphereEnabled={false}
+                //@ts-ignore
                 terrain={new og.EmptyTerrain()}
                 sun={{active:false}}
                 frustums={[[1, 100], [100, 1000],  [1000, 10000], [10000,100000], [100000, 1000000], [1000000, 1000000000]]}
