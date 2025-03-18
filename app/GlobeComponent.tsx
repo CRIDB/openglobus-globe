@@ -60,13 +60,13 @@ const GlobeComponent = () => {
                     />
                 <XYZ
                     name={'cridb'}
-                    url={"https://eureka.cridb.com/api/tiles/52505/equi/{z}/{x}/{y}.png"}
+                    url={"https://eureka.cridb.com/api/tiles/108149/equi/{z}/{x}/{y}.png"}
                     opacity={mapOpacity}
                     isBaseLayer={false}
                     urlRewrite={function (s: { tileX: number; tileY: number; tileZoom: any; }, u: any) {
                         return og.utils.stringTemplate(u, {
                             x: s.tileX,
-                            y: s.tileY + Math.pow(2, s.tileZoom - 2),
+                            y: s.tileY,
                             z: s.tileZoom
                         });
                     }}
