@@ -60,7 +60,7 @@ const GlobeComponent = () => {
                     />
                 <XYZ
                     name={'cridb'}
-                    url={"https://eureka.cridb.com/api/tiles/108149/equi/{z}/{x}/{y}.png"}
+                    url={"https://eureka.cridb.com/api/tiles/52505/equi/{z}/{x}/{y}.png"}
                     opacity={mapOpacity}
                     isBaseLayer={false}
                     urlRewrite={function (s: { tileX: number; tileY: number; tileZoom: any; }, u: any) {
